@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Local weather app</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8 text-center"> 
+				<h1 class="display-3">Weather app</h1><br>
+				<div id="show">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- <script type="text/javascript" src="script.js"></script> -->
+<script type="text/javascript">
+
+	navigator.geolocation.getCurrentPosition(function(location) {
+  		var lat = location.coords.latitude;
+  		var long = location.coords.longitude;
+  		// console.log(location.coords.accuracy);
+  		printLocation(lat, long);
+	});
+	function printLocation(lat, long) {
+		console.log(lat);
+		console.log(long);
+		// show.innerHTML = "<h1>latitude = "  + lat + "</h1>";
+		getLocation(lat, long);
+	}
+
+	function getLocation(lat, long) {
+		var url = "https://fcc-weather-api.glitch.me/api/current?lat=" 
+				+ lat + "&lon=" + long;
+		fetch(url)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(data){
+				// console.log(data);
+				console.log(data.weather[0].main + "\n" + data.main.temp
+					+ "\n" + data.sys.country+ "\n" + data.name);
+				showData(data.weather[0].main,data.main.temp,data.sys.country,data.name);
+			})
+			.catch(function(){
+				console.log("Something has gone terribly wrong.")
+			});
+	}
+
+	function showData(weather, temp, country, place) {
+		var show = document.getElementById('show');
+		show.innerHTML = '<h1>'  + place + ',' + country+ '</h1>\
+							<h2>' + temp + '<sup>o</sup> C<h2>\
+							<h2>' + weather +'</h2>';
+							
+	}
+</script>
+</html>
+
+<!-- https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139
+
+-->
