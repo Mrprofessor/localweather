@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Arvo');
+body {
+	margin-top: 07%;
+    background-color: #669999; 
+	background: linear-gradient(to bottom right, teal, white);
+	background-repeat: no repeat; 
+	background-attachment: fixed; 
+}
